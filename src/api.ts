@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import veo3 from './routes/veo3';
 
 export const app = express();
 
-app.use(cors({ origin: true }));
+app.use(cors({ origin: 'https://www.striker.marketing' }));
 
 app.use(express.json());
 app.use(express.raw({ type: 'application/vnd.custom-type' }));
@@ -14,11 +15,4 @@ app.get('/', (req, res) => {
   res.status(200).send({ status: 'ok' });
 });
 
-const api = express.Router();
-
-api.get('/hello', (req, res) => {
-  res.status(200).send({ message: 'hello world' });
-});
-
-// Version the api
-app.use('/api/v1', api);
+app.use('/veo3/v1', veo3)
