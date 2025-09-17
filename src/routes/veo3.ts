@@ -13,7 +13,7 @@ const upload = multer();
 veo3.post('/generate', <any>upload.single('image'), async (req, res) => {
   const ai = new GoogleGenAI({ apiKey: process.env.apiKey });
 
-  const generateVideosReq: any = { prompt: req.body.prompt };
+  const generateVideosReq: any = { prompt: req.body.prompt, config: {} };
   if (req.file) {
     const imageBytes = req.file.buffer.toString('base64');
     generateVideosReq.image = {
@@ -23,7 +23,7 @@ veo3.post('/generate', <any>upload.single('image'), async (req, res) => {
   }
   
   ['aspectRatio', 'resolution', 'negativePrompt'].forEach((key) => {
-    if (req.body[key]) generateVideosReq[key] = req.body[key];
+    if (req.body[key]) generateVideosReq.config[key] = req.body[key];
   });
 
   console.log(`Request: ${JSON.stringify(generateVideosReq)}`)
