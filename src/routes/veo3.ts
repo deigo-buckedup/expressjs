@@ -26,6 +26,8 @@ veo3.post('/generate', <any>upload.single('image'), async (req, res) => {
     if (req.body[key]) generateVideosReq[key] = req.body[key];
   });
 
+  console.log(`Request: ${JSON.stringify(generateVideosReq)}`)
+
   let operation = await ai.models.generateVideos({
     model: 'veo-3.0-generate-001',
     ...generateVideosReq
